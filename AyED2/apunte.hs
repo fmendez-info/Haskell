@@ -175,3 +175,54 @@ qsort (x:xs) = qsort menores ++ [x] ++ qsort mayores
 safehead :: [a] -> Maybe a
 safehead [] = Nothing
 safehead (x:xs) = Just x
+
+
+
+
+
+
+
+
+--Estructuras
+
+
+--Arboles binarios
+
+data AB a = Hoja | Nodo (AB a) a (AB a) -- Hoja es arbol vacio
+
+esMiembro :: Eq a => a -> AB a -> Bool
+esMiembro a Hoja = False
+esMiembro a (Nodo l b r) = a == b || esMiembro a l || esMiembro a r
+
+--BST
+inorder :: AB a -> [a]
+inorder Hoja = []
+inorder (Nodo i r d) = inorder i ++ [r] ++ inorder d
+
+miembroBST :: Ord a => a -> AB a -> Bool
+miembroBST a Hoja = False
+miembroBST a (Nodo i r d) | a == r = True
+                          | a < r = miembroBST a i
+                          | a > r = miembroBST a d
+
+minimoBST :: AB a -> a
+minimoBST (Nodo Hoja r d) = r
+minimoBST (Nodo i r d) = minimoBST i
+
+maximoBST :: AB a -> a
+maximoBST (Nodo i r Hoja) = r
+maximoBST (Nodo i r d) = maximoBST d
+
+--esBST :: AB a -> Bool
+
+insertar :: Ord a => a -> AB a -> AB a
+insertar a Hoja = Nodo Hoja a Hoja
+insertar a (Nodo i r d) | a <= r = Nodo (insertar a i) r d
+                        | otherwise = Nodo i r (insertar a d)
+
+--borrar :: Ord 
+
+--RBT
+data Color = R | B
+data RBT a = E | T Color (RBT a) a (RBT a)
+

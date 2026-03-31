@@ -2,6 +2,6 @@
 no se
 
 serie :: [a] -> [[a]]
-serie [] = []
+serie [] = [[]]
 serie [x] = []:[[x]]
-serie (x:xs) = [] : [x] :serie xs
+serie (x:xs) = [] : [x] : serie xs
